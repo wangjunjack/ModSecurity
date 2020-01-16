@@ -61,8 +61,10 @@ cppcheck:
 		--enable=all \
 		--inconclusive \
 		--template="warning: {file},{line},{severity},{id},{message}" \
-		--std=posix . 2> cppcheck.txt
-	cat cppcheck.txt | grep -v "/ lalr1.cc"
+		--include=headers \
+		--error-exitcode=1 \
+		-i "src/parser/seclang-parser.cc" -i "src/parser/seclang-scanner.cc" \
+		--std=posix .
 
 check-static: cppcheck
 

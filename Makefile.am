@@ -56,15 +56,16 @@ parser:
 
 
 cppcheck:
-	@cppcheck \
-		--suppressions-list=./test/cppcheck_suppressions.txt \
-		--enable=all \
-		--inconclusive \
-		--template="warning: {file},{line},{severity},{id},{message}" \
-		--include=headers \
-		--error-exitcode=1 \
-		-i "src/parser/seclang-parser.cc" -i "src/parser/seclang-scanner.cc" \
-		--std=posix .
+	@ppcheck -U YYSTYPE \
+                --suppressions-list=./test/cppcheck_suppressions.txt \
+                --enable=all \
+                --inconclusive \
+                --template="warning: {file},{line},{severity},{id},{message}" \
+                -I headers -I . -I others -I src -I others/mbedtls -I src/parser \
+                --error-exitcode=1 \
+                -i "src/parser/seclang-parser.cc" -i "src/parser/seclang-scanner.cc" \
+                .
+
 
 check-static: cppcheck
 
